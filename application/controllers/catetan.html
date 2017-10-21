@@ -1,0 +1,55 @@
+<?php
+if (isset($data)){
+    foreach($data as $row){
+        ?>
+        <div id="modalEditBarang<?php echo $row->id_polis?>" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+           <div class="modal-dialog">
+           <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">Edit Data Barang</h3>
+            </div>
+            <form class="form-horizontal" method="post" action="<?php echo site_url('Data_control/update_barang')?>">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="control-label">Kode Barang</label>
+                        <div class="col-sm-7">
+                          <input class="form-control" name="kd_polis" type="text" value="<?php echo $row->id_polis;?>" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                  <label class="control-label">Jenis Asuransi</label>
+                  <div class="col-sm-7">
+                    <select class="form-control" name="kd_jenis">
+                    <?php foreach ($jenis as $key1) :?>
+                    <option value="<?php echo $key1->id_jenis?>"><?php echo $key1->nama?></option>
+                    <?php endforeach; ?>
+                    <option value="<?php echo $row->id_jenis?>" selected><?php echo $row->nama?></option>
+                    </select>
+                  </div>
+                </div>
+
+                 <div class="form-group">
+                  <label class="control-label">Tanggal Asuransi</label>
+                  <div class="col-sm-7">
+                  <?php
+                  $date = $row->tanggal_asuransi;
+                  $res = date("Y-m-d",strtotime($date));
+                  ?>
+                    <input type="text" class="form-control pull-right" id="tgl_mulai2" name="tgl_mulai" value="<?php echo $res;?>">
+                  </div>
+                </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+            </form>
+            </div>
+        </div>
+        </div>
+    <?php }
+}
+?>
+ <a class="btn btn-info" href="<?php echo site_url('Admin/edit_polis/'.$row->id_polis);?>"><i class="fa fa-pencil"></i> Edit</a>
